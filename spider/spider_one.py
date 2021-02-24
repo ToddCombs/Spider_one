@@ -28,6 +28,7 @@ def request_dd(url):
 def parese_result(html):
     """处理抓取到的页面源代码"""
     pattern = re.compile('<li>.*?list_num.*?(\d+).</div>.*?<img src="(.*?)".*?class="name".*?title="(.*?)">.*?class="star">.*?class="tuijian">(.*?)</span>.*?class="publisher_info">.*?target="_blank">(.*?)</a>.*?class="biaosheng">.*?<span>(.*?)</span></div>.*?<p><span\sclass="price_n">&yen;(.*?)</span>.*?</li>', re.S)
+    # 这是我写过最长的正则表达式，还是beautifulsoup4好用
     items = re.findall(pattern, html)
     for item in items:
         yield {
