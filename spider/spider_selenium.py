@@ -1,5 +1,6 @@
 # author:ToddCombs
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 
 # find_element_by_id    获取form表单
 # find_element_by_name  获取相应的输入框
@@ -10,7 +11,10 @@ from selenium import webdriver
 # find_element_by_class_name    获取相应的元素
 # find_element_by_css_selector
 
-
+# 无头模式
+# options = Options()
+# options.add_argument('-headless') # 无头参数
+# d = webdriver.Chrome(executable_path='chromedriver.exe', options=options)
 d = webdriver.Chrome()
 d.get('https://www.baidu.com')
 
