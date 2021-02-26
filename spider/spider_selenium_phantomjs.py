@@ -67,8 +67,57 @@ def next_page(page_num):
         return next_page(page_num)
 
 
+def save_to_excel(soup):
+    """将获取到的数据存入excel"""
+    list = soup.find(class_='video-list clearfix').find_all(class_='video-item matrix')
+    for item in list:
+        item_title = item.find('a').get('title')
+        item_link = item.find('a').get('href')
+        item_dec = item.find(class_='des hide').text
+        item_view = item.find(class_='so-icon watch-num').text
+        item_biubiu = item.find(class_='so-icon hide').text
+        item_date = item.find(class_='so-icon time').text
+
+        print('抓取：' + item_title)
+
+        global n
+
+        sheet.write(n, 0, item_title)
+        sheet.write(n, 1, item_link)
+        sheet.write(n, 2, item_dec)
+        sheet.write(n, 3, item_view)
+        sheet.write(n, 4, item_biubiu)
+        sheet.write(n, 5, item_date)
+
+        n = n + 1
+
 
 def get_source():
     """获取页面资源"""
-    pass
+    WAIT.until(EC.presence_of_element_located(
+        (By.CSS_SELECTOR, '#all-list > div.flow-loader > div.filter-wrap')))
+
+    html = b.page_source
+    soup = BeautifulSoup(html, 'lxml')
+    print('到这')
+
+    save_to_excel(soup)
+
+
+def main():
+    """循环获取B站视频信息并存入excel"""
+    try:
+        total = search()
+        print(total)
+
+        for i in range(2, int(total + 1)):
+            next_page(i)
+
+    finally:
+        b.close()
+
+if __name__ == '__main__':
+    main()
+    book.save('蔡徐坤篮球.xls')
+
 
