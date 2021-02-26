@@ -56,8 +56,11 @@ def next_page(page_num):
     try:
         print('获取下一页数据')
         next_btn = WAIT.until(EC.element_to_be_clickable((By.CSS_SELECTOR,
-                                                          '#all-list > div.flow-loader > dir.page-wrap > dir > ul > li.page-item.active > button'),
-                                                         str(page_num)))
+                                                          '#all-list > div.flow-loader > dir.page-wrap > dir > ul > li.page-item.next > button')))
+        next_btn.click()
+        WAIT.until(EC.text_to_be_present_in_element((By.CSS_SELECTOR,
+                                                     '#all-list > div.flow-loader > div.page-wrap > div > ul > li.page-item.active > button'),
+                                                    str(page_num)))
         get_source()
     except TimeoutException:
         b.refresh()
