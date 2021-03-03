@@ -1,4 +1,6 @@
 # author:ToddCombs
+import multiprocessing
+
 from bs4 import BeautifulSoup
 import requests
 import xlwt
@@ -61,12 +63,20 @@ def main(page):
     """获取db评分排名前250部电影信息并存入excel中"""
     url = 'https://movie.douban.com/top250?start='+str(page*25)+'&filter='
     html = request_douban(url)
-    # if html == None:
-    #     print('get html None, page=' + str(page))
-    #     return
+    if html == None:
+        print('get html None, page=' + str(page))
+        return
 
     soup = BeautifulSoup(html, 'lxml')
     save_to_excel(soup)
+
+
+# def main(url):
+#     """修改后多进程爬取db电影信息"""
+#     html = request_douban(url)
+#     soup = BeautifulSoup(html, 'lxml')
+#     save_to_excel(soup)
+
 
 
 if __name__ == '__main__':
@@ -74,7 +84,23 @@ if __name__ == '__main__':
     for i in range(0, 10):
             main(i)
 
-sec = random.random() % 5
-time.sleep(sec)
+    sec = random.random() % 5
+    time.sleep(sec)
 
-book.save(u'豆瓣最受欢迎的250部电影.xls')
+    book.save(u'豆瓣最受欢迎的250部电影.xls')
+
+    # start = time.time()
+    # urls = []
+    # # 根据电脑CPU的内核数量创建相应的进程池，进程数不需要大于内核数，因为进程数创建的再多反而没好处
+    # pool = multiprocessing.Pool(multiprocessing.cpu_count())
+    # for i in range(0, 10):
+    #     url = 'https://movie.douban.com/top250?start='+str(i * 25)+'&filter='
+    #     urls.append(url)
+    # # 通过map函数去执行主函数，将获得的url传过去
+    # pool.map(main, urls)
+    #
+    # # 之后调用close方法，让它不在创建进程
+    # pool.close()
+    # # 调用join方法让进程池的进程执行完毕再结束
+    # pool.join()
+
