@@ -87,7 +87,7 @@ if __name__ == '__main__':
     sec = random.random() % 5
     time.sleep(sec)
 
-    book.save(u'豆瓣最受欢迎的250部电影.xls')
+    book.save('C:\\Users\\Administrator\\PycharmProjects\\Spider_one\\spider\\static\\{}.xls'.format(u'豆瓣最受欢迎的250部电影'))
 
     # start = time.time()
     # urls = []

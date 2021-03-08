@@ -1,10 +1,13 @@
 # author:ToddCombs
-import pytesseract
 # 导入图像识别模块tesseract-ocr
-try:
-    from PIL import Image
-except ImportError:
-    import Image
+from pygments.formatters import img
+import PIL
+from PIL import Image
+# try:
+#     from PIL import Image
+# except ImportError:
+#     import Image
+import pytesseract
 
 # captcha = Image.open('static/1.png')  # 第一张验证码不用处理，很容易就识别出来了
 captcha = Image.open('static/2.png')  # 第二张图片需要处理下灰度和二值化
@@ -32,3 +35,28 @@ captcha.show()
 print(captcha)
 result = pytesseract.image_to_string(captcha)
 print(result)
+#
+# data = img.getdata()
+#
+#     w, h = img.size
+#     count = 0
+#     for x in range(1, h-1):
+#         for y in range(1, h-1):
+#             # 找出各个像素方向
+#             mid_pixel = data[x * y + x]
+#             if mid_pixel == 0:
+#                 top_pixel = data[w * (y - 1) + x]
+#                 left_pixel = data[w * y + (x - 1)]
+#                 down_pixel = data[w * (y + 1) + x]
+#                 right_pixel = data[w * y + (x + 1)]
+#
+#                 if top_pixel == 0:
+#                     count += 1
+#                 if left_pixel == 0:
+#                     count += 1
+#                 if down_pixel == 0:
+#                     count += 1
+#                 if right_pixel == 0:
+#                     count += 1
+#                 if count > 4:
+#                     img.putpixel((x, y), 0)
