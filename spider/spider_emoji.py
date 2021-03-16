@@ -1,4 +1,5 @@
-# author:ToddCombs
+# author:学习python的正确姿势
+# 微信网页版已经禁止该方法登录爬取表情包，脚本已无效。
 import os
 from time import time
 import requests
